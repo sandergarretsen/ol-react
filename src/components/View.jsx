@@ -15,8 +15,14 @@ class View extends Component {
   componentDidMount() {
     if (this.props.extent && !this.props.center && !this.props.zoom) {
       setTimeout(() => { // grr
-        this.view.fit(this.props.extent, {duration: 700, padding: [0, 0, 0, 0] })
+        this.view.fit(this.props.extent, {duration: 300, padding: [0, 0, 0, 0] })
       }, 1);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.extent !== prevProps.extent && !this.props.center && !this.props.zoom) {
+      this.view.fit(this.props.extent, {duration: 300, padding: [0, 0, 0, 0] })
     }
   }
 

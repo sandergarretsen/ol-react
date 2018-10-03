@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import OLMap from 'ol/map';
 import OLView from 'ol/view';
+import OLOverlay from 'ol/overlay';
 import OLFeature from 'ol/feature';
 import OLTile from 'ol/layer/tile';
 import OLVector from 'ol/layer/vector';
@@ -10,7 +11,6 @@ import OLVector$1 from 'ol/source/vector';
 import OLImageCanvas from 'ol/source/imagecanvas';
 import OLPoint from 'ol/geom/point';
 import OLLineString from 'ol/geom/linestring';
-import OLMultiLineString from 'ol/geom/multilinestring';
 import OLMultiPoint from 'ol/geom/multipoint';
 import proj from 'ol/proj';
 export { default as extent } from 'ol/extent';
@@ -272,11 +272,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 var warning_1 = warning;
 
-var warning$1 = /*#__PURE__*/Object.freeze({
-  default: warning_1,
-  __moduleExports: warning_1
-});
-
 /*
 object-assign
 (c) Sindre Sorhus
@@ -377,11 +372,9 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 var ReactPropTypesSecret_1 = ReactPropTypesSecret;
 
-var require$$1 = ( warning$1 && warning_1 ) || warning$1;
-
 if (process.env.NODE_ENV !== 'production') {
   var invariant$1 = invariant_1;
-  var warning$2 = require$$1;
+  var warning$1 = warning_1;
   var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
   var loggedTypeFailures = {};
 }
@@ -413,7 +406,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
         } catch (ex) {
           error = ex;
         }
-        warning$2(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error);
+        warning$1(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error);
         if (error instanceof Error && !(error.message in loggedTypeFailures)) {
           // Only monitor this failure once because there tends to be a lot of the
           // same error.
@@ -421,7 +414,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 
           var stack = getStack ? getStack() : '';
 
-          warning$2(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
+          warning$1(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
         }
       }
     }
@@ -586,7 +579,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
             // Avoid spamming the console because they are often not actionable except for lib authors
             manualPropTypeWarningCount < 3
           ) {
-            require$$1(
+            warning_1(
               false,
               'You are manually calling a React.PropTypes validation ' +
               'function for the `%s` prop on `%s`. This is deprecated ' +
@@ -688,7 +681,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
 
   function createEnumTypeChecker(expectedValues) {
     if (!Array.isArray(expectedValues)) {
-      process.env.NODE_ENV !== 'production' ? require$$1(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
+      process.env.NODE_ENV !== 'production' ? warning_1(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
       return emptyFunction$2.thatReturnsNull;
     }
 
@@ -731,14 +724,14 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
 
   function createUnionTypeChecker(arrayOfTypeCheckers) {
     if (!Array.isArray(arrayOfTypeCheckers)) {
-      process.env.NODE_ENV !== 'production' ? require$$1(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+      process.env.NODE_ENV !== 'production' ? warning_1(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
       return emptyFunction$2.thatReturnsNull;
     }
 
     for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
       var checker = arrayOfTypeCheckers[i];
       if (typeof checker !== 'function') {
-        require$$1(
+        warning_1(
           false,
           'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
           'received %s at index %s.',
@@ -1055,8 +1048,15 @@ var View = function (_Component) {
       if (this.props.extent && !this.props.center && !this.props.zoom) {
         setTimeout(function () {
           // grr
-          _this2.view.fit(_this2.props.extent, { duration: 700, padding: [0, 0, 0, 0] });
+          _this2.view.fit(_this2.props.extent, { duration: 300, padding: [0, 0, 0, 0] });
         }, 1);
+      }
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.extent !== prevProps.extent && !this.props.center && !this.props.zoom) {
+        this.view.fit(this.props.extent, { duration: 300, padding: [0, 0, 0, 0] });
       }
     }
   }, {
@@ -1085,6 +1085,78 @@ View.propTypes = {
   zoom: propTypes.number,
   extent: propTypes.arrayOf(propTypes.number)
 };
+
+var Overlay = function (_Component) {
+  inherits(Overlay, _Component);
+
+  function Overlay(props) {
+    classCallCheck(this, Overlay);
+
+    var _this = possibleConstructorReturn(this, (Overlay.__proto__ || Object.getPrototypeOf(Overlay)).call(this, props));
+
+    _this.overlayRef = React.createRef();
+    //this.overlay.setPositioning('bottom-center');
+
+    return _this;
+  }
+
+  createClass(Overlay, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _props = this.props,
+          map = _props.map,
+          position = _props.position,
+          positioning = _props.positioning,
+          timeout = _props.timeout;
+
+
+      this.overlay = new OLOverlay({
+        element: this.overlayRef.current,
+        offset: [0, -20],
+        position: this.props.position,
+        positioning: positioning
+      });
+
+      this.overlay.setPosition(this.props.position);
+      map.addOverlay(this.overlay);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.props.map.removeOverlay(this.overlay);
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props.position !== nextProps.position) {
+        this.overlay.setPosition(nextProps.position);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          children = _props2.children,
+          style = _props2.style;
+
+
+      return React.createElement(
+        'div',
+        null,
+        React.createElement(
+          'div',
+          { ref: this.overlayRef },
+          React.createElement(
+            'div',
+            { style: style },
+            children
+          )
+        )
+      );
+    }
+  }]);
+  return Overlay;
+}(Component);
 
 var Feature = function (_Component) {
   inherits(Feature, _Component);
@@ -1387,39 +1459,6 @@ var LineString = function (_Component) {
   return LineString;
 }(Component);
 
-var MultiLineString = function (_Component) {
-  inherits(MultiLineString, _Component);
-
-  function MultiLineString(props) {
-    classCallCheck(this, MultiLineString);
-
-    var _this = possibleConstructorReturn(this, (MultiLineString.__proto__ || Object.getPrototypeOf(MultiLineString)).call(this, props));
-
-    _this.multilinestring = new OLMultiLineString();
-    _this.multilinestring.setCoordinates(props.coordinates);
-    props.feature.setGeometry(_this.multilinestring);
-    return _this;
-  }
-
-  createClass(MultiLineString, [{
-    key: 'componentWillUpdate',
-    value: function componentWillUpdate(props) {
-      this.multilinestring.setCoordinates(props.coordinates);
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      this.props.feature.setGeometry(null);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return null;
-    }
-  }]);
-  return MultiLineString;
-}(Component);
-
 var MultiPoint = function (_Component) {
   inherits(MultiPoint, _Component);
 
@@ -1455,4 +1494,4 @@ var MultiPoint = function (_Component) {
 
 var fromLonLat = proj.fromLonLat;
 
-export { fromLonLat, Map, View, Feature, Tile as TileLayer, Vector as VectorLayer, Image as ImageLayer, BingMaps as BingMapsSource, Vector$1 as VectorSource, ImageCanvas as ImageCanvasSource, Point, LineString, MultiLineString, MultiPoint };
+export { fromLonLat, Map, View, Overlay, Feature, Tile as TileLayer, Vector as VectorLayer, Image as ImageLayer, BingMaps as BingMapsSource, Vector$1 as VectorSource, ImageCanvas as ImageCanvasSource, Point, LineString, MultiPoint };

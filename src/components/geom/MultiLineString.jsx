@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import OLMultiLineString from 'ol/geom/multilinestring';
+import OLMultiLineString from 'ol/geom/MultiLineString';
+// import MultiLineString from 'ol/geom/MultiLineString';
 
 class MultiLineString extends Component {
   constructor(props) {
