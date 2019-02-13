@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import OLMap from 'ol/map';
-import OLView from 'ol/view';
-import OLOverlay from 'ol/overlay';
-import OLFeature from 'ol/feature';
-import OLTile from 'ol/layer/tile';
-import OLVector from 'ol/layer/vector';
-import OLImage from 'ol/layer/image';
-import OLBingMaps from 'ol/source/bingmaps';
-import OLVector$1 from 'ol/source/vector';
-import OLImageCanvas from 'ol/source/imagecanvas';
-import OLPoint from 'ol/geom/point';
-import OLLineString from 'ol/geom/linestring';
-import OLMultiPoint from 'ol/geom/multipoint';
-import proj from 'ol/proj';
-export { default as extent } from 'ol/extent';
+import OLMap from 'ol/Map';
+import OLView from 'ol/View';
+import OLOverlay from 'ol/Overlay';
+import OLFeature from 'ol/Feature';
+import OLTile from 'ol/layer/Tile';
+import OLVector from 'ol/layer/Vector';
+import OLImage from 'ol/layer/Image';
+import OLBingMaps from 'ol/source/BingMaps';
+import OLVector$1 from 'ol/source/Vector';
+import OLImageCanvas from 'ol/source/ImageCanvas';
+import OLPoint from 'ol/geom/Point';
+import OLLineString from 'ol/geom/LineString';
+import OLMultiPoint from 'ol/geom/MultiPoint';
+export * from 'ol/proj';
+export * from 'ol/style';
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -73,7 +73,7 @@ var Map = function (_Component) {
 
     var _this = possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
 
-    _this.map = new OLMap({
+    _this.map = window.map = new OLMap({
       logo: false,
       controls: []
     });
@@ -162,11 +162,6 @@ emptyFunction.thatReturnsArgument = function (arg) {
 
 var emptyFunction_1 = emptyFunction;
 
-var emptyFunction$1 = /*#__PURE__*/Object.freeze({
-  default: emptyFunction_1,
-  __moduleExports: emptyFunction_1
-});
-
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -219,8 +214,6 @@ function invariant(condition, format, a, b, c, d, e, f) {
 
 var invariant_1 = invariant;
 
-var emptyFunction$2 = ( emptyFunction$1 && emptyFunction_1 ) || emptyFunction$1;
-
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
  * This can be used to log issues in development environments in critical
@@ -228,7 +221,7 @@ var emptyFunction$2 = ( emptyFunction$1 && emptyFunction_1 ) || emptyFunction$1;
  * same logic and follow the same code paths.
  */
 
-var warning = emptyFunction$2;
+var warning = emptyFunction_1;
 
 if (process.env.NODE_ENV !== 'production') {
   var printWarning = function printWarning(format) {
@@ -631,7 +624,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
   }
 
   function createAnyTypeChecker() {
-    return createChainableTypeChecker(emptyFunction$2.thatReturnsNull);
+    return createChainableTypeChecker(emptyFunction_1.thatReturnsNull);
   }
 
   function createArrayOfTypeChecker(typeChecker) {
@@ -682,7 +675,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
   function createEnumTypeChecker(expectedValues) {
     if (!Array.isArray(expectedValues)) {
       process.env.NODE_ENV !== 'production' ? warning_1(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
-      return emptyFunction$2.thatReturnsNull;
+      return emptyFunction_1.thatReturnsNull;
     }
 
     function validate(props, propName, componentName, location, propFullName) {
@@ -725,7 +718,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
   function createUnionTypeChecker(arrayOfTypeCheckers) {
     if (!Array.isArray(arrayOfTypeCheckers)) {
       process.env.NODE_ENV !== 'production' ? warning_1(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
-      return emptyFunction$2.thatReturnsNull;
+      return emptyFunction_1.thatReturnsNull;
     }
 
     for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
@@ -738,7 +731,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
           getPostfixForTypeWarning(checker),
           i
         );
-        return emptyFunction$2.thatReturnsNull;
+        return emptyFunction_1.thatReturnsNull;
       }
     }
 
@@ -987,7 +980,7 @@ var factoryWithThrowingShims = function() {
     exact: getShim
   };
 
-  ReactPropTypes.checkPropTypes = emptyFunction$2;
+  ReactPropTypes.checkPropTypes = emptyFunction_1;
   ReactPropTypes.PropTypes = ReactPropTypes;
 
   return ReactPropTypes;
@@ -1406,8 +1399,9 @@ var Point = function (_Component) {
 
     var _this = possibleConstructorReturn(this, (Point.__proto__ || Object.getPrototypeOf(Point)).call(this, props));
 
-    _this.point = new OLPoint();
-    _this.point.setCoordinates(props.coordinates);
+    var coordinates = _this.props.coordinates;
+
+    _this.point = new OLPoint(coordinates);
     props.feature.setGeometry(_this.point);
     return _this;
   }
@@ -1492,6 +1486,6 @@ var MultiPoint = function (_Component) {
   return MultiPoint;
 }(Component);
 
-var fromLonLat = proj.fromLonLat;
+//export { default as extent } from 'ol/extent';
 
-export { fromLonLat, Map, View, Overlay, Feature, Tile as TileLayer, Vector as VectorLayer, Image as ImageLayer, BingMaps as BingMapsSource, Vector$1 as VectorSource, ImageCanvas as ImageCanvasSource, Point, LineString, MultiPoint };
+export { Map, View, Overlay, Feature, Tile as TileLayer, Vector as VectorLayer, Image as ImageLayer, BingMaps as BingMapsSource, Vector$1 as VectorSource, ImageCanvas as ImageCanvasSource, Point, LineString, MultiPoint };

@@ -6,21 +6,21 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var React = require('react');
 var React__default = _interopDefault(React);
-var OLMap = _interopDefault(require('ol/map'));
-var OLView = _interopDefault(require('ol/view'));
-var OLOverlay = _interopDefault(require('ol/overlay'));
-var OLFeature = _interopDefault(require('ol/feature'));
-var OLTile = _interopDefault(require('ol/layer/tile'));
-var OLVector = _interopDefault(require('ol/layer/vector'));
-var OLImage = _interopDefault(require('ol/layer/image'));
-var OLBingMaps = _interopDefault(require('ol/source/bingmaps'));
-var OLVector$1 = _interopDefault(require('ol/source/vector'));
-var OLImageCanvas = _interopDefault(require('ol/source/imagecanvas'));
-var OLPoint = _interopDefault(require('ol/geom/point'));
-var OLLineString = _interopDefault(require('ol/geom/linestring'));
-var OLMultiPoint = _interopDefault(require('ol/geom/multipoint'));
-var proj = _interopDefault(require('ol/proj'));
-var extent = _interopDefault(require('ol/extent'));
+var OLMap = _interopDefault(require('ol/Map'));
+var OLView = _interopDefault(require('ol/View'));
+var OLOverlay = _interopDefault(require('ol/Overlay'));
+var OLFeature = _interopDefault(require('ol/Feature'));
+var OLTile = _interopDefault(require('ol/layer/Tile'));
+var OLVector = _interopDefault(require('ol/layer/Vector'));
+var OLImage = _interopDefault(require('ol/layer/Image'));
+var OLBingMaps = _interopDefault(require('ol/source/BingMaps'));
+var OLVector$1 = _interopDefault(require('ol/source/Vector'));
+var OLImageCanvas = _interopDefault(require('ol/source/ImageCanvas'));
+var OLPoint = _interopDefault(require('ol/geom/Point'));
+var OLLineString = _interopDefault(require('ol/geom/LineString'));
+var OLMultiPoint = _interopDefault(require('ol/geom/MultiPoint'));
+var proj = require('ol/proj');
+var style = require('ol/style');
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -80,7 +80,7 @@ var Map = function (_Component) {
 
     var _this = possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
 
-    _this.map = new OLMap({
+    _this.map = window.map = new OLMap({
       logo: false,
       controls: []
     });
@@ -169,11 +169,6 @@ emptyFunction.thatReturnsArgument = function (arg) {
 
 var emptyFunction_1 = emptyFunction;
 
-var emptyFunction$1 = /*#__PURE__*/Object.freeze({
-  default: emptyFunction_1,
-  __moduleExports: emptyFunction_1
-});
-
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -226,8 +221,6 @@ function invariant(condition, format, a, b, c, d, e, f) {
 
 var invariant_1 = invariant;
 
-var emptyFunction$2 = ( emptyFunction$1 && emptyFunction_1 ) || emptyFunction$1;
-
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
  * This can be used to log issues in development environments in critical
@@ -235,7 +228,7 @@ var emptyFunction$2 = ( emptyFunction$1 && emptyFunction_1 ) || emptyFunction$1;
  * same logic and follow the same code paths.
  */
 
-var warning = emptyFunction$2;
+var warning = emptyFunction_1;
 
 if (process.env.NODE_ENV !== 'production') {
   var printWarning = function printWarning(format) {
@@ -638,7 +631,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
   }
 
   function createAnyTypeChecker() {
-    return createChainableTypeChecker(emptyFunction$2.thatReturnsNull);
+    return createChainableTypeChecker(emptyFunction_1.thatReturnsNull);
   }
 
   function createArrayOfTypeChecker(typeChecker) {
@@ -689,7 +682,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
   function createEnumTypeChecker(expectedValues) {
     if (!Array.isArray(expectedValues)) {
       process.env.NODE_ENV !== 'production' ? warning_1(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
-      return emptyFunction$2.thatReturnsNull;
+      return emptyFunction_1.thatReturnsNull;
     }
 
     function validate(props, propName, componentName, location, propFullName) {
@@ -732,7 +725,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
   function createUnionTypeChecker(arrayOfTypeCheckers) {
     if (!Array.isArray(arrayOfTypeCheckers)) {
       process.env.NODE_ENV !== 'production' ? warning_1(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
-      return emptyFunction$2.thatReturnsNull;
+      return emptyFunction_1.thatReturnsNull;
     }
 
     for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
@@ -745,7 +738,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
           getPostfixForTypeWarning(checker),
           i
         );
-        return emptyFunction$2.thatReturnsNull;
+        return emptyFunction_1.thatReturnsNull;
       }
     }
 
@@ -994,7 +987,7 @@ var factoryWithThrowingShims = function() {
     exact: getShim
   };
 
-  ReactPropTypes.checkPropTypes = emptyFunction$2;
+  ReactPropTypes.checkPropTypes = emptyFunction_1;
   ReactPropTypes.PropTypes = ReactPropTypes;
 
   return ReactPropTypes;
@@ -1144,7 +1137,7 @@ var Overlay = function (_Component) {
     value: function render() {
       var _props2 = this.props,
           children = _props2.children,
-          style = _props2.style;
+          style$$1 = _props2.style;
 
 
       return React__default.createElement(
@@ -1155,7 +1148,7 @@ var Overlay = function (_Component) {
           { ref: this.overlayRef },
           React__default.createElement(
             'div',
-            { style: style },
+            { style: style$$1 },
             children
           )
         )
@@ -1413,8 +1406,9 @@ var Point = function (_Component) {
 
     var _this = possibleConstructorReturn(this, (Point.__proto__ || Object.getPrototypeOf(Point)).call(this, props));
 
-    _this.point = new OLPoint();
-    _this.point.setCoordinates(props.coordinates);
+    var coordinates = _this.props.coordinates;
+
+    _this.point = new OLPoint(coordinates);
     props.feature.setGeometry(_this.point);
     return _this;
   }
@@ -1499,10 +1493,10 @@ var MultiPoint = function (_Component) {
   return MultiPoint;
 }(React.Component);
 
-var fromLonLat = proj.fromLonLat;
+//export { default as extent } from 'ol/extent';
 
-exports.extent = extent;
-exports.fromLonLat = fromLonLat;
+Object.keys(proj).forEach(function (key) { exports[key] = proj[key]; });
+Object.keys(style).forEach(function (key) { exports[key] = style[key]; });
 exports.Map = Map;
 exports.View = View;
 exports.Overlay = Overlay;
