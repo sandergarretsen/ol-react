@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OLVector from 'ol/source/vector';
+import OLVector from 'ol/source/Vector';
 
 class Vector extends Component {
   constructor(props) {

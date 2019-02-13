@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OLOverlay from 'ol/overlay';
+import OLOverlay from 'ol/Overlay';
 import PropTypes from 'prop-types';
 
 class Overlay extends Component {

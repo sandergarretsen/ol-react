@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OLImage from 'ol/layer/image';
+import OLImage from 'ol/layer/Image';
 
 class Image extends Component {
   constructor(props) {

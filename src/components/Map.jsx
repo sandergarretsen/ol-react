@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import OLMap from 'ol/map';
+import OLMap from 'ol/Map';
 //import PropTypes from 'prop-types';
 
 class Map extends Component {
   constructor(props) {
     super(props);
-    this.map = new OLMap({
+    this.map = window.map = new OLMap({
       logo: false,
       controls: [],
     });

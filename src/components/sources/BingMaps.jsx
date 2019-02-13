@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OLBingMaps from 'ol/source/bingmaps';
+import OLBingMaps from 'ol/source/BingMaps';
 
 class BingMaps extends Component {
   constructor(props) {

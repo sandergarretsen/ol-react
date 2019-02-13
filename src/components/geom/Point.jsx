@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import OLPoint from 'ol/geom/point';
+import OLPoint from 'ol/geom/Point';
 
 class Point extends Component {
   constructor(props) {
     super(props);
-    this.point = new OLPoint();
-    this.point.setCoordinates(props.coordinates)
+
+    const { coordinates } = this.props;
+    this.point = new OLPoint(coordinates);
     props.feature.setGeometry(this.point);
   }
 

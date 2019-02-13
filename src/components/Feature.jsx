@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OLFeature from 'ol/feature';
+import OLFeature from 'ol/Feature';
 
 class Feature extends Component {
   constructor(props) {

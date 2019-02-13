@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OLView from 'ol/view';
+import OLView from 'ol/View';
 import PropTypes from 'prop-types';
 
 class View extends Component {

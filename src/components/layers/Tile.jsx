@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OLTile from 'ol/layer/tile';
+import OLTile from 'ol/layer/Tile';
 
 class Tile extends Component {
   constructor(props) {

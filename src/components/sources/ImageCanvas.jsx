@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OLImageCanvas from 'ol/source/imagecanvas';
+import OLImageCanvas from 'ol/source/ImageCanvas';
 
 class ImageCanvas extends Component {
   constructor(props) {

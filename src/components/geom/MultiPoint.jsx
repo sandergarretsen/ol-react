@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OLMultiPoint from 'ol/geom/multipoint';
+import OLMultiPoint from 'ol/geom/MultiPoint';
 
 class MultiPoint extends Component {
   constructor(props) {

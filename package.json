@@ -11,7 +11,7 @@
   },
   "peerDependencies": {
     "react": ">=15",
-    "ol": ">=4"
+    "ol": ">=5.3"
   },
   "author": "",
   "license": "ISC",

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OLLineString from 'ol/geom/linestring';
+import OLLineString from 'ol/geom/LineString';
 
 class LineString extends Component {
   constructor(props) {
