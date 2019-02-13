@@ -1,6 +1,3 @@
-import proj from 'ol/proj';
-// import extent from 'ol/extent';
-
 export { default as Map } from './components/Map.jsx';
 export { default as View } from './components/View.jsx';
 export { default as Overlay } from './components/Overlay.jsx';
@@ -16,8 +13,7 @@ export { default as ImageCanvasSource } from './components/sources/ImageCanvas.j
 
 export { default as Point } from './components/geom/Point.jsx';
 export { default as LineString } from './components/geom/LineString.jsx';
-//export { default as MultiLineString } from './components/geom/MultiLineString.jsx';
 export { default as MultiPoint } from './components/geom/MultiPoint.jsx';
 
-export const { fromLonLat } = proj;
-export { default as extent } from 'ol/extent';
+export * from 'ol/proj';
+export * from 'ol/style';
