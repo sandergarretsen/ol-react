@@ -28,7 +28,7 @@
       <View extent={extent} />
       <TileLayer>
         <BingMapsSource
-          apiKey="bingKey"
+          apiKey="bingkey"
           imagerySet="CanvasLight"
         />
       </TileLayer>
