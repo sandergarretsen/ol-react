@@ -7,6 +7,7 @@ class Tile extends Component {
     this.tile = new OLTile({
       visible: props.visible || true,
       zIndex: props.zIndex || 0,
+      preload: props.preload || 0,
     });
     props.map.addLayer(this.tile);
   }

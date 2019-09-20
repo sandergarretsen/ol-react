@@ -21,6 +21,7 @@ var OLLineString = _interopDefault(require('ol/geom/LineString'));
 var OLMultiPoint = _interopDefault(require('ol/geom/MultiPoint'));
 var proj = require('ol/proj');
 var style = require('ol/style');
+var extent = require('ol/extent');
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -993,6 +994,13 @@ var factoryWithThrowingShims = function() {
   return ReactPropTypes;
 };
 
+var factoryWithThrowingShims$1 = /*#__PURE__*/Object.freeze({
+  default: factoryWithThrowingShims,
+  __moduleExports: factoryWithThrowingShims
+});
+
+var require$$1 = ( factoryWithThrowingShims$1 && factoryWithThrowingShims ) || factoryWithThrowingShims$1;
+
 var propTypes = createCommonjsModule(function (module) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -1020,7 +1028,7 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = factoryWithThrowingShims();
+  module.exports = require$$1();
 }
 });
 
@@ -1048,15 +1056,20 @@ var View = function (_Component) {
       if (this.props.extent && !this.props.center && !this.props.zoom) {
         setTimeout(function () {
           // grr
-          _this2.view.fit(_this2.props.extent, { duration: 300, padding: [0, 0, 0, 0] });
+          _this2.view.fit(_this2.props.extent, { duration: 600, padding: [0, 0, 0, 0] });
         }, 1);
       }
     }
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
-      if (this.props.extent !== prevProps.extent && !this.props.center && !this.props.zoom) {
-        this.view.fit(this.props.extent, { duration: 300, padding: [0, 0, 0, 0] });
+      var _this3 = this;
+
+      if (!prevProps.extent && this.props.extent && !this.props.center && !this.props.zoom) {
+        setTimeout(function () {
+          // grr
+          _this3.view.fit(_this3.props.extent, { duration: 600, padding: [0, 0, 0, 0] });
+        });
       }
     }
   }, {
@@ -1213,7 +1226,8 @@ var Tile = function (_Component) {
 
     _this.tile = new OLTile({
       visible: props.visible || true,
-      zIndex: props.zIndex || 0
+      zIndex: props.zIndex || 0,
+      preload: props.preload || 0
     });
     props.map.addLayer(_this.tile);
     return _this;
@@ -1493,10 +1507,9 @@ var MultiPoint = function (_Component) {
   return MultiPoint;
 }(React.Component);
 
-//export { default as extent } from 'ol/extent';
-
 Object.keys(proj).forEach(function (key) { exports[key] = proj[key]; });
 Object.keys(style).forEach(function (key) { exports[key] = style[key]; });
+Object.keys(extent).forEach(function (key) { exports[key] = extent[key]; });
 exports.Map = Map;
 exports.View = View;
 exports.Overlay = Overlay;

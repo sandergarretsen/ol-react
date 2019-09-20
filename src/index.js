@@ -17,3 +17,4 @@ export { default as MultiPoint } from './components/geom/MultiPoint.jsx';
 
 export * from 'ol/proj';
 export * from 'ol/style';
+export * from 'ol/extent';
